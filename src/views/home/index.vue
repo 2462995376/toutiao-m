@@ -27,13 +27,7 @@
 
     <!-- 频道编辑 -->
     <van-popup class="edit-channel-popup" v-model="isEditChannelShow" position="bottom" :style="{ height: '100%' }" closeable close-icon-position="top-left"><channelEdit></channelEdit> </van-popup>
-    <van-grid :gutter="10">
-      <van-grid-item class="channel-item" v-for="value in 8" :key="value" text="文字" />
-    </van-grid>
-    <van-cell title="频道推荐" :border="false"></van-cell>
-    <van-grid :gutter="10">
-      <van-grid-item class="channel-item" v-for="value in 8" :key="value" text="文字" />
-    </van-grid>
+
     <!-- /频道编辑 -->
   </div>
 </template>
