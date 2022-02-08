@@ -7,7 +7,7 @@ import request from '@/utils/request'
 export const login = data => {
   return request({
     method: 'POST',
-    url: '/v1_0/authorizations',
+    url: '/app/v1_0/authorizations',
     data
   })
 }
@@ -19,7 +19,7 @@ export const login = data => {
 export const sendSms = mobile => {
   return request({
     method: 'GET',
-    url: `/v1_0/sms/codes/${mobile}`
+    url: `/app/v1_0/sms/codes/${mobile}`
   })
 }
 
@@ -29,7 +29,7 @@ export const sendSms = mobile => {
 export const getUserInfo = () => {
   return request({
     method: 'GET',
-    url: '/v1_0/user'
+    url: '/app/v1_0/user'
     // 发送请求头数据
     // headers: {
     //   // 注意：该接口需要授权才能访问
@@ -45,6 +45,35 @@ export const getUserInfo = () => {
 export const getUserChannels = () => {
   return request({
     method: 'GET',
-    url: '/v1_0/channels'
+    url: '/app/v1_0/user/channels'
+  })
+}
+// 获取所有频道
+// Path： /app/v1_0/channels
+// Method： GET
+export const getAllChannels = () => {
+  return request({
+    method: 'GET',
+    url: '/app/v1_0/channels'
+  })
+}
+
+// 将频道更新到服务器
+export const addUserChannels = channels => {
+  return request({
+    method: 'PATCH',
+    url: '/app/v1_0/user/channels',
+    data: {
+      channels
+    }
+  })
+}
+// 删除指定用户频道
+// Path： /app/v1_0/user/channels/:target
+// Method： DELETE
+export const deleteUserChannels = channelId => {
+  return request({
+    method: 'DELETE',
+    url: `/app/v1_0/user/channels/${channelId}`
   })
 }

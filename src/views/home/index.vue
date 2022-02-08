@@ -26,7 +26,9 @@
     <!-- /频道列表 -->
 
     <!-- 频道编辑 -->
-    <van-popup class="edit-channel-popup" v-model="isEditChannelShow" position="bottom" :style="{ height: '100%' }" closeable close-icon-position="top-left"><channelEdit></channelEdit> </van-popup>
+    <van-popup class="edit-channel-popup" v-model="isEditChannelShow" position="bottom" :style="{ height: '100%' }" closeable close-icon-position="top-left">
+      <channelEdit :channel="channels" :active="active" @update-active="updateActive"></channelEdit>
+    </van-popup>
 
     <!-- /频道编辑 -->
   </div>
@@ -34,6 +36,8 @@
 
 <script>
 import { getUserChannels } from '@/api/user'
+import { mapState } from 'vuex'
+import { getItem } from '@/utils/storage.js'
 import ArticleList from './components/article-list'
 import channelEdit from '@/views/home/components/channel-edit.vue'
 
@@ -51,7 +55,7 @@ export default {
       isEditChannelShow: false
     }
   },
-  computed: {},
+  computed: { ...mapState(['user']) },
   watch: {},
   created() {
     this.loadChannels()
@@ -62,11 +66,25 @@ export default {
   methods: {
     async loadChannels() {
       try {
+        // this.channels = data.data.channels
         const { data } = await getUserChannels()
-        this.channels = data.data.channels
+        if (this.user) {
+          this.channels = data.data.channels
+        } else {
+          const localChannel = getItem('TOUTIAO_CHANNEL')
+          if (localChannel) {
+            this.channels = localChannel
+          } else {
+            this.channels = data.data.channels
+          }
+        }
       } catch (err) {
         this.$toast('获取频道数据失败')
       }
+    },
+    updateActive(e, isEditChannelShow = true) {
+      this.active = e
+      this.isEditChannelShow = isEditChannelShow
     }
   }
 }
