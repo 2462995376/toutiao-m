@@ -39,8 +39,8 @@ const routes = [
     ]
   },
   {
-    path: '/serch',
-    name: 'serch',
+    path: '/search',
+    name: 'search',
     component: Search
   }
 ]
