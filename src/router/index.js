@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Search from '@/views/search/search.vue'
+import article from '@/views/article/articleindex.vue'
 
 Vue.use(VueRouter)
 
@@ -42,6 +43,12 @@ const routes = [
     path: '/search',
     name: 'search',
     component: Search
+  },
+  {
+    path: '/article/:articleID',
+    name: 'article',
+    component: article,
+    props: true
   }
 ]
 
